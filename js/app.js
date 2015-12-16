@@ -14,16 +14,16 @@ app.controller('mainController', function($scope, $http) {
     });
   };
 
-  	$scope.restaurants = {};
-  	$scope.fetchRestaurants = function() {
-  		console.log('Called');
-  		latlan = $scope.addresses[0].lat+','+$scope.addresses[0].lng;
-  		return $http.post(
-      		serverToFetch+'/restaurants',
-      		latlan,
-      		{headers: {'Content-Type': 'text/plain'}}
-    	).then(function(response) {
-      	$scope.restaurants = response.data.results
-    });
-  	}
+  $scope.restaurants = {};
+  $scope.fetchRestaurants = function() {
+  	console.log('Called');
+  	latlan = $scope.addresses[0].lat+','+$scope.addresses[0].lng;
+  	return $http.post(
+     		serverToFetch+'/restaurants',
+     		latlan,
+     		{headers: {'Content-Type': 'text/plain'}}
+   	).then(function(response) {
+     	$scope.restaurants = response.data.results
+   });
+  }
 });
