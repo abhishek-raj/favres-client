@@ -1,5 +1,5 @@
 var app = angular.module('Client', []);
-var serverToFetch = 'https://nameless-temple-6285.herokuapp.com';
+var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
 app.controller('mainController', function($scope, $http) {
 	
 	$scope.addresses = {};
