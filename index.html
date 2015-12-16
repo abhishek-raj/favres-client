@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="Client">
+<head>
+	<title>Favres-Client</title>
+	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap-theme.min.css">
+</head>
+<body>
+<div ng-controller="mainController">
+	<input type="text" ng-model="address" ng-change="refreshAddresses(address)"><br>
+	{{addresses[0].formatted}}<br>
+	<input type="button" value="Select this place" ng-click="fetchRestaurants()"><br>
+	<span ng-repeat="restaurant in restaurants">{{restaurant.name}}<br></span>
+</div>
+
+<script type="text/javascript" src="js/vendor/angular.min.js"></script>
+<script type="text/javascript" src="js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
