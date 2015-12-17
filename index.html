@@ -10,7 +10,8 @@
 	<input type="text" ng-model="address" ng-change="refreshAddresses(address)"><br>
 	{{addresses[0].formatted}}<br>
 	<input type="button" value="Select this place" ng-click="fetchRestaurants()"><br>
-	<span ng-repeat="restaurant in restaurants">{{restaurant.name}}<br></span>
+	<span ng-repeat="restaurant in restaurants">{{restaurant.name}}
+	<input type="button" value="Add to favourites" ng-click="addFav(restaurant)"><br></span>
 	
 	<input type="button" value="Sign up" ng-click="showSignupForm()">
 	<input type="button" value="Sign in" ng-click="showSigninForm()">
@@ -28,6 +29,9 @@
 	Password: <input type="text" ng-model="signinuser.password"><br/>
 	<input type="button" value="Submit" ng-click="signinUser()"><br>
 	</div>
+
+	<br/><input type="button" value="Show my favourites" ng-click="getFav()">
+	<span ng-repeat="favourite in favourites">{{favourite.name}}<br></span>
 </div>
 
 <script type="text/javascript" src="js/vendor/angular.min.js"></script>

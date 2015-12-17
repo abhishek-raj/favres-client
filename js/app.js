@@ -80,4 +80,46 @@ app.controller('mainController', function($scope, $http) {
       alert($scope.signinmessage+'\nHello '+$scope.signedinuser.name+'!');
    }); 
   }
+
+  $scope.addFav = function(restaurant) {
+    if(!($scope.signedinuser))
+    {
+      alert("Please sign in.");
+    }
+    else
+    {
+      restaurant.username = $scope.signedinuser.username;
+      restaurant.place = $scope.addresses[0].formatted;
+      restaurant.latlng = restaurant.lat+','+restaurant.lan;
+      console.log(JSON.stringify(restaurant));
+      $http.post(
+        serverToFetch+'/favourites/post',
+        JSON.stringify(restaurant),
+        {headers: {'Content-Type': 'text/plain'}}
+    ).then(function(response) {
+      $scope.favmessage = response.data.message;
+      alert($scope.favmessage);
+   });
+    }
+  }
+  $scope.getFav = function() {
+    if(!($scope.signedinuser))
+    {
+      alert("Please sign in.");
+    }
+    else
+    {
+      var temp = {};
+      temp.username = $scope.signedinuser.username;
+      temp.password = $scope.signedinuser.password;
+      console.log(JSON.stringify(temp));
+      $http.post(
+        serverToFetch+'/favourites',
+        JSON.stringify(temp),
+        {headers: {'Content-Type': 'text/plain'}}
+    ).then(function(response) {
+      $scope.favourites = response.data.favs;
+   });
+    }
+  }
 });
