@@ -1,5 +1,6 @@
 var app = angular.module('Client', []);
-var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
+//var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
+var serverToFetch = 'http://127.0.0.1:5000';
 app.controller('mainController', function($scope, $http) {
 	
 	$scope.addresses = {};
@@ -25,5 +26,58 @@ app.controller('mainController', function($scope, $http) {
    	).then(function(response) {
      	$scope.restaurants = response.data.results
    });
+  }
+
+  $scope.showSignupFormToggle = false;
+  $scope.showSignupForm = function() {
+    if($scope.showSignupFormToggle)
+    {
+      $scope.showSignupFormToggle = false;
+    }
+    else
+    {
+      $scope.showSignupFormToggle = true;
+    }
+    $scope.showSigninFormToggle = false;
+    return $scope.showSignupFormToggle;
+  }
+
+  $scope.addUser = function() {
+    console.log('New User.');
+    $http.post(
+        serverToFetch+'/addusers',
+        JSON.stringify($scope.newuser),
+        {headers: {'Content-Type': 'text/plain'}}
+    ).then(function(response) {
+      $scope.signupmessage = response.data.message;
+      alert($scope.signupmessage);
+   }); 
+  }
+
+  $scope.showSigninFormToggle = false;
+  $scope.showSigninForm = function() {
+    if($scope.showSigninFormToggle)
+    {
+      $scope.showSigninFormToggle = false;
+    }
+    else
+    {
+      $scope.showSigninFormToggle = true;
+    }
+    $scope.showSignupFormToggle = false;
+    return $scope.showSigninFormToggle;
+  }
+
+  $scope.signinUser = function() {
+    console.log('Sign in.');
+    $http.post(
+        serverToFetch+'/userauth',
+        JSON.stringify($scope.signinuser),
+        {headers: {'Content-Type': 'text/plain'}}
+    ).then(function(response) {
+      $scope.signinmessage = response.data.message;
+      $scope.signedinuser = response.data.user;
+      alert($scope.signinmessage+'\nHello '+$scope.signedinuser.name+'!');
+   }); 
   }
 });
