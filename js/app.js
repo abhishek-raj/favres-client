@@ -89,6 +89,7 @@ app.controller('mainController', function($scope, $http) {
     else
     {
       restaurant.username = $scope.signedinuser.username;
+      restaurant.password = $scope.signedinuser.password;
       restaurant.place = $scope.addresses[0].formatted;
       restaurant.latlng = restaurant.lat+','+restaurant.lan;
       console.log(JSON.stringify(restaurant));
