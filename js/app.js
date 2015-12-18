@@ -1,6 +1,6 @@
-var app = angular.module('Client', []);
-var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
-//var serverToFetch = 'http://127.0.0.1:5000';
+var app = angular.module('Client', ['ui.bootstrap']);
+//var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
+var serverToFetch = 'http://127.0.0.1:5000';
 app.controller('mainController', function($scope, $http) {
 	
 	$scope.addresses = {};
@@ -91,7 +91,7 @@ app.controller('mainController', function($scope, $http) {
       restaurant.username = $scope.signedinuser.username;
       restaurant.password = $scope.signedinuser.password;
       restaurant.place = $scope.addresses[0].formatted;
-      restaurant.latlng = restaurant.lat+','+restaurant.lan;
+      restaurant.latlng = restaurant.lat+'..'+restaurant.lan;
       console.log(JSON.stringify(restaurant));
       $http.post(
         serverToFetch+'/favourites/post',
@@ -122,5 +122,38 @@ app.controller('mainController', function($scope, $http) {
       $scope.favourites = response.data.favs;
    });
     }
+  }
+
+  $scope.removeFav = function(restaurant) {
+    if(!($scope.signedinuser))
+    {
+      alert("Please sign in.");
+    }
+    else
+    {
+      restaurant.username = $scope.signedinuser.username;
+      restaurant.password = $scope.signedinuser.password;
+      console.log(JSON.stringify(restaurant));
+      $http.post(
+        serverToFetch+'/favourites/post/delete',
+        JSON.stringify(restaurant),
+        {headers: {'Content-Type': 'text/plain'}}
+    ).then(function(response) {
+      $scope.favmessage = response.data.message;
+      $scope.getFav();
+      alert($scope.favmessage);
+   });
+    }
+  }
+
+  $scope.searchResultsShow = true;
+  $scope.favouritesShow = false;
+  $scope.showResultsPage = function() {
+    $scope.searchResultsShow = true;
+    $scope.favouritesShow = false;
+  }
+  $scope.showFavouritesPage = function() {
+    $scope.searchResultsShow = false;
+    $scope.favouritesShow = true;
   }
 });

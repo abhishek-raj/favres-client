@@ -31,12 +31,11 @@
 	</div>
 
 	<br/><input type="button" value="Show my favourites" ng-click="getFav()">
-	<span ng-repeat="favourite in favourites">{{favourite.name}}<br></span>
+	<span ng-repeat="favourite in favourites">{{favourite.name}}<input type="button" value="Remove from favourites" ng-click="removeFav(favourite)"><br></span>
 </div>
 
 <script type="text/javascript" src="js/vendor/angular.min.js"></script>
-<script type="text/javascript" src="js/vendor/jquery.min.js"></script>
-<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/vendor/ui-bootstrap.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
