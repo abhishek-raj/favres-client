@@ -82,19 +82,49 @@
 			</h3>
         </div>
         <div class="modal-body">
-         	<div ng-show="showSignupFormToggle">
-				Name: <input type="text" ng-model="newuser.name"><br/>
-				Username: <input type="text" ng-model="newuser.username"><br/>
-				Password: <input type="password" ng-model="newuser.password"><br/>
-				Email: <input type="text" ng-model="newuser.email"><br/>
+         	<div class="form-horizontal" ng-show="showSignupFormToggle">
+         		<div class="form-group">
+    				<label class="col-sm-2 control-label">Name:</label>
+    				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newuser.name" placeholder="name">
+					</div>
+				</div>
+				<div class="form-group">
+    				<label class="col-sm-2 control-label">Username:</label>
+    				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newuser.username" placeholder="username">
+					</div>
+				</div>
+				<div class="form-group">
+    				<label class="col-sm-2 control-label">Password:</label>
+    				<div class="col-sm-10">
+					<input type="password" class="form-control" ng-model="newuser.password" placeholder="password">
+					</div>
+				</div>
+				<div class="form-group">
+    				<label class="col-sm-2 control-label">Email:</label>
+    				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="newuser.email" placeholder="email">
+					</div>
+				</div>
 				<div class="modal-footer">
             		<button class="btn btn-primary" type="button" ng-click="addUser();ok()">submit</button>
         		</div>
 			</div>
 
-			<div ng-show="showSigninFormToggle">
-				Username: <input type="text" ng-model="signinuser.username"><br/>
-				Password: <input type="password" ng-model="signinuser.password"><br/>
+			<div class="form-horizontal" ng-show="showSigninFormToggle">
+				<div class="form-group">
+    				<label class="col-sm-2 control-label">Username:</label>
+    				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="signinuser.username" placeholder="username">
+					</div>
+				</div>
+				<div class="form-group">
+    				<label class="col-sm-2 control-label">Password:</label>
+    				<div class="col-sm-10">
+					<input type="password" class="form-control" ng-model="signinuser.password" placeholder="password">
+					</div>
+				</div>
 				<div class="modal-footer">
             		<button class="btn btn-primary" type="button" ng-click="signinUser();ok()">submit</button>
         		</div>
