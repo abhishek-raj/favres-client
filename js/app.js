@@ -1,8 +1,9 @@
 var app = angular.module('Client', ['ui.bootstrap']);
 var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
 //var serverToFetch = 'http://127.0.0.1:5000';
-app.controller('mainController', function($scope, $http) {
-	
+app.controller('mainController', function($scope, $uibModal, $http) {
+	$scope.newuser = {};
+  $scope.signinuser = {};
 	$scope.addresses = {};
 	$scope.refreshAddresses = function(address) {
 		console.log(address);
@@ -28,20 +29,14 @@ app.controller('mainController', function($scope, $http) {
    });
   }
 
-  $scope.showSignupFormToggle = false;
+  $scope.showSignupFormToggle = true;
   $scope.showSignupForm = function() {
-    if($scope.showSignupFormToggle)
-    {
-      $scope.showSignupFormToggle = false;
-    }
-    else
-    {
-      $scope.showSignupFormToggle = true;
-    }
+    $scope.showSignupFormToggle = true;
     $scope.showSigninFormToggle = false;
     return $scope.showSignupFormToggle;
   }
 
+  $scope.signupmessage = '';
   $scope.addUser = function() {
     console.log('New User.');
     $http.post(
@@ -56,20 +51,15 @@ app.controller('mainController', function($scope, $http) {
 
   $scope.showSigninFormToggle = false;
   $scope.showSigninForm = function() {
-    if($scope.showSigninFormToggle)
-    {
-      $scope.showSigninFormToggle = false;
-    }
-    else
-    {
-      $scope.showSigninFormToggle = true;
-    }
+    $scope.showSigninFormToggle = true;
     $scope.showSignupFormToggle = false;
     return $scope.showSigninFormToggle;
   }
 
+  $scope.signinmessage = '';
+  $scope.signedinuser = {};
   $scope.signinUser = function() {
-    console.log('Sign in.');
+    console.log($scope.signinuser);
     $http.post(
         serverToFetch+'/userauth',
         JSON.stringify($scope.signinuser),
@@ -81,6 +71,7 @@ app.controller('mainController', function($scope, $http) {
    }); 
   }
 
+  $scope.favmessage = '';
   $scope.addFav = function(restaurant) {
     if(!($scope.signedinuser))
     {
@@ -91,7 +82,7 @@ app.controller('mainController', function($scope, $http) {
       restaurant.username = $scope.signedinuser.username;
       restaurant.password = $scope.signedinuser.password;
       restaurant.place = $scope.addresses[0].formatted;
-      restaurant.latlng = restaurant.lat+'..'+restaurant.lan;
+      restaurant.latlng = restaurant.lat+'..'+restaurant.lng;
       console.log(JSON.stringify(restaurant));
       $http.post(
         serverToFetch+'/favourites/post',
@@ -103,6 +94,8 @@ app.controller('mainController', function($scope, $http) {
    });
     }
   }
+
+  $scope.favourites = [];
   $scope.getFav = function() {
     if(!($scope.signedinuser))
     {
@@ -156,4 +149,21 @@ app.controller('mainController', function($scope, $http) {
     $scope.searchResultsShow = false;
     $scope.favouritesShow = true;
   }
+
+  $scope.openSigninSignup = function (size) {
+
+    $scope.modalInstance = $uibModal.open({
+      templateUrl:'myModalContent.html',
+      scope : $scope,
+      resolve: {}
+    });
+    $scope.modalInstance.result.then(function (scopeModal) {
+      $scope = scopeModal;
+    }, function () {
+    });
+  };
+
+  $scope.ok = function () {
+    $scope.modalInstance.close($scope);
+  };
 });
