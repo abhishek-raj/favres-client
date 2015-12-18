@@ -73,7 +73,7 @@ app.controller('mainController', function($scope, $uibModal, $http) {
 
   $scope.favmessage = '';
   $scope.addFav = function(restaurant) {
-    if(!($scope.signedinuser.password))
+    if(!($scope.signedinuser.password && $scope.signedinuser.username))
     {
       alert("Please sign in.");
     }
@@ -97,7 +97,7 @@ app.controller('mainController', function($scope, $uibModal, $http) {
 
   $scope.favourites = [];
   $scope.getFav = function() {
-    if(!($scope.signedinuser.password))
+    if(!($scope.signedinuser.password && $scope.signedinuser.username))
     {
       alert("Please sign in.");
     }
@@ -118,7 +118,7 @@ app.controller('mainController', function($scope, $uibModal, $http) {
   }
 
   $scope.removeFav = function(restaurant) {
-    if(!($scope.signedinuser.password))
+    if(!($scope.signedinuser.password && $scope.signedinuser.username))
     {
       alert("Please sign in.");
     }
