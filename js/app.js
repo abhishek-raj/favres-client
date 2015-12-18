@@ -1,6 +1,6 @@
 var app = angular.module('Client', ['ui.bootstrap']);
-//var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
-var serverToFetch = 'http://127.0.0.1:5000';
+var serverToFetch = 'https://heroku-favres-server.herokuapp.com';
+//var serverToFetch = 'http://127.0.0.1:5000';
 app.controller('mainController', function($scope, $http) {
 	
 	$scope.addresses = {};
